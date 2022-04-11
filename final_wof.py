@@ -3,7 +3,9 @@
 #Definitions
 import random
 
-from regex import P
+# from regex import P
+
+file_path = (r'Assessments\Wheel of Fortune\words.txt')
 
 def random_word(fname):
     word_dictionary = open("words.txt")
