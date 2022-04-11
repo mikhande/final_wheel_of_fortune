@@ -1,0 +1,101 @@
+Wheel of Fortune Pseudo Code:
+
+Pull in word file
+
+Def random_word
+
+Generate random word
+
+The_word = random_word(from txt file)
+
+Correct_letters = []
+
+Separate letters of random word into a list
+Print blanks and insert correctly guessed letters to show players on each turn []
+
+Make wheel [prizes, bankrupt, lose a turn]
+
+Def spin_wheel
+	pull random from wheel array
+
+Def buy_vowel
+
+turns = 0
+
+Players [1,2,3]
+
+Player 1 bank = 0 
+
+player 2 bank = 0
+
+player 3 bank = 0
+
+round1 amount = 0
+
+round2 amount = 0
+
+Player 2 bank = 0
+
+Player 3 bank = 0
+
+Guesses_made []
+
+Vowels = [e, i, o, u, a]
+
+consonants = [b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,w,x,y,z]
+
+Def play_again
+	Player input if they want to play again
+
+Def Begin round():
+
+player_guess = 
+	Welcome players, print spaces for the words
+	normal_round_player1()
+		player=1
+		welcome message, Print(player)
+	normal_round_player2()
+	normal_round_player3()
+
+
+Def normal_round player 1():
+	Welcome players to round 1
+	Print the blank spaces of the word
+	While guess is false, Prompt player to spin the wheel or guess the word
+		If spin_wheel
+			Print Random choice from options in wheel array
+				If wheel_choice = int, print wheel choice
+				If bankruptcy, player bank = 0, break loop
+				If lose a turn – break loop
+			Prompt player to guess a consonant
+				If guess doesn't equal a letter(len(guess)  == 1 & is in alphabet) or a vowel
+					“sorry, pick a different letter”
+				If guess doesn't equal vowel
+					if guess is in the_word and '_' is in correct_letters
+						append player bank with int
+						print correct_letters
+						count guess in correct_letters
+						multiply count by wheel choice add to player bank
+						append guesses_made
+						if player has > $250 in bank, prompt user to buy a vowel or end their turn
+							if end turn, break loop
+							if buy a vowel, run buy_vowel
+						else, end turn
+					if gues not in the_word
+						print correct_letters
+						break
+						
+
+Def normal_round_player 2():
+
+Def normal_round_player 3():
+
+normal_round 2:
+	Welcome players to round 2
+	choose random word
+	print the blank spaces of the word
+	pick a player from players list - can't repeat (unique)/disitinct?
+	run normal round()
+	round2amount.append with player earnings
+			 
+Def round 3
