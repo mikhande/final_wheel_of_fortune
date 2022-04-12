@@ -162,7 +162,7 @@ def round3():
 #     print(the_word)
 
     #Player 1 round 1
-while player1_turn == False and rounds == rounds <= 1:
+while player1_turn == False:
     print("Welcome to WHEEL OF FORTUNE!")
     print("Here is your word: " + str(correct_letters))
     print(the_word)
@@ -179,7 +179,7 @@ while player1_turn == False and rounds == rounds <= 1:
             # guess_consonant()
             if consonant_guess in the_word:
                 p1_bank = p1_bank + player_bank
-                print("player 1 bank = " + str(p1_bank))
+                print("player banks = " + str(pbanks))
             if consonant_guess not in the_word: #if the guess wrong, next player's turn
                 player2_turn = False
                 player1_turn = True
