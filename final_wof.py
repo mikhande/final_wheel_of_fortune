@@ -65,17 +65,13 @@ def spin_wheel():
     if wheel_choice == "BANKRUPTCY":
             print("Oh no! You landed on BANKRUPTCY and lost all your money...")
             player_bank = 0
-            # player2_turn = False
-            # player1_turn = True
             print("Your player bank is now: " + str(player_bank))
     elif wheel_choice == "Lose a Turn":
-        # player2_turn = False
-        # player1_turn = True
         print("Oops, you lost a turn.")
     else:
-        player_bank += wheel_choice
+        player_bank = wheel_choice
         print("Nice! You now have the opportunity to make a guess.")
-        # guess_consonant()
+        guess_consonant()
 
 
 
@@ -83,6 +79,7 @@ def spin_wheel():
 
 def guess_consonant():
     global player_bank
+    # player_bank = 0
     global consonant_guess
     print(correct_letters)
     consonant_guess = input("Guess a consonant: ")
@@ -97,7 +94,7 @@ def guess_consonant():
             print('That letter is in the word! That means you have won: $' + str(player_bank))
             print(correct_letters)
         elif '_' not in correct_letters: #This is if you have guessed the full word by guessing letters 
-            player_bank = (player_bank + wheel_choice * consonant_guess.count(correct_letters))
+            player_bank + (wheel_choice * consonant_guess.count(correct_letters))
             print("Congratulations, the word was " + str(the_word) + ". You got it! Your bank is now: $" + (player_bank))
         elif consonant_guess != correct_letters:
             guesses_made.append(consonant_guess)
@@ -158,26 +155,28 @@ def round3():
 
 #Game play
 
-while rounds == rounds <= 1:
+if rounds == rounds <= 1:
     print("Welcome to WHEEL OF FORTUNE!")
     print("Here is your word: " + str(correct_letters))
     print(the_word)
 
     #Player 1 round 1
     while player1_turn == False:
+        # player_bank = 0 
         # print("It is WHEEL OF FORTUNE! Welcome, Player 1, here is the word: " + str(correct_letters))
-        first_spin = input("Player 1, to spin the wheel, type 'S': ") 
+        first_spin = input("Player 1, to spin the wheel, type 'W': ") 
         first_spin.upper()
-        if first_spin == "s": #Spin the wheel
+        if first_spin == "w": #Spin the wheel
             spin_wheel()
-            if wheel_choice == "BANKRUPTCY" and wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
+            if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
                 player2_turn = False
                 player1_turn = True
                 print("Sorry player 1.. You lost your turn.")
             else:
-                guess_consonant()
+                # guess_consonant()
                 if consonant_guess in the_word:
                     p1_bank = p1_bank + player_bank
+                    print("player 1 bank = " + str(p1_bank))
                 if consonant_guess not in the_word: #if the guess wrong, next player's turn
                     player2_turn = False
                     player1_turn = True
