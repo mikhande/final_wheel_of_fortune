@@ -41,6 +41,10 @@ wheel_choice = random.choice(the_wheel)
 
 player_bank = 0
 
+p1_bank = 0
+p2_bank = 0
+p3_bank = 0
+
 rounds = 0
 
 def add_round():
@@ -155,16 +159,14 @@ def round3():
 
 # Defining rounds 1 & 2. Code is repeated for players 1, 2, and 3. Gameplay starts in a while loop after this block of code. 
 def round1_2():
-    
+    global p1_bank
+    global p2_bank
+    global p3_bank
     player1_turn = True
     player2_turn = False
     player3_turn = False
 
-    p1_bank = 0
-    p2_bank = 0
-    p3_bank = 0
-
-    pbanks = [(p1_bank), (p2_bank), (p3_bank)]
+    # pbanks = [p1_bank, p2_bank, p3_bank]
     print(p1_bank, p2_bank, p3_bank)
     get_word()
 
@@ -205,7 +207,9 @@ def round1_2():
                             puzzle()
                             if puzzle_guess == the_word:
                                 add_round()
+                            else:
                                 player1_turn = False
+                                player2_turn = True
                         elif vowel_question == "w" or "W":
                             spin_wheel()
                     elif player_bank < 250: #less than 250 in the bank, no option to buy a vowel
@@ -227,6 +231,7 @@ def round1_2():
         first_spin.upper()
         if first_spin == "w":
             spin_wheel()
+            print(f'wheel_choice ={wheel_choice}')
             if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn":
                 p2_bank = player_bank
                 player3_turn = True
@@ -252,6 +257,9 @@ def round1_2():
                             if puzzle_guess == the_word:
                                 add_round()
                                 player2_turn = False
+                            else:
+                                player2_turn = False
+                                player3_turn = True
                         elif vowel_question == "w" or "w":
                             spin_wheel()
                     elif player_bank < 250: #less than 250 in the bank, no option to buy a vowel
@@ -299,6 +307,9 @@ def round1_2():
                             if puzzle_guess == the_word:
                                 add_round()
                                 player3_turn = False
+                            else:
+                                player3_turn = False
+                                player1_turn = True
                         elif vowel_question == "w" or "w":
                             spin_wheel()
                     elif player_bank < 250: #less than 250 in the bank, no option to buy a vowel
