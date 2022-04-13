@@ -37,7 +37,6 @@ consonants = ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v
 #This is the wheel based off photo sent in chat
 the_wheel =  ["BANKRUPTCY", "Lose a Turn", 200, 400, 250, 150, 400, 600, 250, 350, 750, 800, 300, 200, 100, 500, 400, 300, 200, 700, 200, 150, 450]
 
-wheel_choice = random.choice(the_wheel)
 
 player_bank = 0
 
@@ -57,11 +56,11 @@ def add_round():
 
 #Spinning the wheel
 def spin_wheel():
+    global wheel_choice
     global player_bank
     wheel_choice = random.choice(the_wheel)
     print("You landed on: " + str(wheel_choice))
     if wheel_choice == "BANKRUPTCY":
-            print("Oh no! You landed on BANKRUPTCY and lost all your money...")
             player_bank = 0
             print("Your player bank is now: " + str(player_bank))
     elif wheel_choice == "Lose a Turn":
@@ -131,9 +130,9 @@ def puzzle():
     puzzle_guess = input("Good luck! Please type in the word: ")
     if puzzle_guess.isalpha():
         if puzzle_guess == the_word:
+            add_round()
+            guess = True
             print(rounds)
-            print("Congratulations, you got it! The word was " + str(the_word.upper()))
-            print("We will begin Round 2 now. Good luck!")
         elif puzzle_guess != the_word:
             print("Sorry, that's not it!")
     else: 
@@ -146,30 +145,30 @@ def puzzle():
 
 # Defining rounds 1 & 2. Code is repeated for players 1, 2, and 3. Gameplay starts in a while loop after this block of code. 
 def round1_2():
+    global consonant_guess
     global p1_bank
     global p2_bank
     global p3_bank
     player1_turn = True
     player2_turn = False
     player3_turn = False
-
+    global guess
     guess = False
 
 
 
     print(p1_bank, p2_bank, p3_bank)
 
-  
+   
     while guess == False:
+        get_word()
+        print(rounds)
+        print("Welcome to WHEEL OF FORTUNE! Rounds 1 & 2")
+        print("Here is your word: " + str(correct_letters))
+        print(the_word)
 
 #Player 1's turn
         while player1_turn == True:
-            get_word()
-        
-            print("Welcome to WHEEL OF FORTUNE! Rounds 1 & 2")
-            print("Here is your word: " + str(correct_letters))
-            print(the_word)
-
             first_spin = input("Player 1, to spin the wheel, type '1': ") 
             if first_spin == "1": #Spin the wheel
                 spin_wheel()
@@ -453,7 +452,8 @@ def round3(): # Round 3 play
 
 #game play
 
-while rounds <= 1 :
+while rounds < 2:
     round1_2()
 else:
-     round3()
+    round3()
+
