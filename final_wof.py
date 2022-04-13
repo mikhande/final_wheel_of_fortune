@@ -196,7 +196,7 @@ def round1_2():
                             elif vowel_question == "3": #Player can guess the puzzle
                                 puzzle()
                                 if puzzle_guess == the_word:
-                                    add_round()
+                                    player1_turn = False
                                     guess = True
                                 else:
                                     player1_turn = False
@@ -229,7 +229,7 @@ def round1_2():
                             if last_response == "2":
                                 puzzle()
                                 if puzzle_guess == the_word:
-                                    add_round()
+                                    player1_turn = False
                                     guess = True
                                 else:
                                     player1_turn = False
@@ -283,9 +283,8 @@ def round1_2():
                             elif vowel_question == "3":
                                 puzzle()
                                 if puzzle_guess == the_word:
-                                    add_round()
-                                    guess = True
                                     player2_turn = False
+                                    guess = True
                                 else:
                                     player2_turn = False
                                     player3_turn = True
@@ -297,7 +296,7 @@ def round1_2():
                             if last_response == "2":
                                 puzzle()
                                 if puzzle_guess == the_word:
-                                    add_round()
+                                    player2_turn = False
                                     guess = True
                                 else:
                                     player2_turn = False
@@ -350,7 +349,6 @@ def round1_2():
                             elif vowel_question == "3":
                                 puzzle()
                                 if puzzle_guess == the_word:
-                                    add_round()
                                     guess = True
                                     player3_turn = False
                                 else:
@@ -364,7 +362,7 @@ def round1_2():
                             if last_response == "2":
                                 puzzle()
                                 if puzzle_guess == the_word:
-                                    add_round()
+                                    player3_turn = False
                                     guess = True
                                 else:
                                     player1_turn = True
