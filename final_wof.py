@@ -388,21 +388,68 @@ def round1_2():
             else:
                 print("Please type '1': ")
 
-#Round 3 definition
-def round3():
-    global player   
-    global given_letters
-    player_names = {p1_bank: "player 1", p2_bank: "player 2", p3_bank: "player 3"}
-    player = (player_names[max(player_names)])
+#Round 3 definitions
+def final_consonant(): # Guessing a consonant
+    guess_1 = input("Guess 1 consonant: "  )
+    for position in range(len(the_word_list)):
+        if the_word_list[position] == guess_1:
+            correct_letters[position] = guess_1
+    if guess_1 not in vowels:
+        if guess_1 in the_word and '_' in correct_letters: #This is if you have guessed a letter in the word but haven't guessed the full word
+            print(correct_letters)
+        elif guess_1 != correct_letters:
+            print("That's not in the word.")
+    else:
+        print('That is not a consonant')
 
+def final_vowel(): # Guessing a vowel
+    guess_2 = input("Guess 1 vowel: ")
+    for position in range(len(the_word_list)):
+        if the_word_list[position] == guess_2:
+            correct_letters[position] = guess_2
+    if guess_2 in vowels:
+        if guess_2 in the_word and '_' in correct_letters: #This is if you have guessed a letter in the word but haven't guessed the full word
+            print(correct_letters)
+        elif guess_2 != correct_letters:
+            print("That's not in the word.")
+    else:
+        print('That is not a vowel')
+
+def round3(): # Round 3 play
+    global player
+    consonant_guesses =0
+    vowels = ['a','e','i','o','u']
+    player_names = {p1_bank: "player 1", p2_bank: "player 2", p3_bank: "player 3"}
+
+    player = (player_names[max(player_names)])# This is the player that will be in the round based off of their previous player bank
+
+    print("Welcome to round 3: " + str(player))
     get_word()
-    print("Welcome to round 3: " + (player))
 
     given_letters = ['r','s','t','l','n','e']
     for position in range(len(the_word_list)):
-        if the_word_list[position] == given_letters:
-            correct_letters[position] = given_letters
-    print("Your word is: " + (the_word))
+        if the_word_list[position] in given_letters:
+            correct_letters[position] = the_word_list[position]
+
+    print(correct_letters)
+
+    print(the_word)
+    print("Now, you will be prompted to guess 3 consonants.")
+    while consonant_guesses < 4:
+        final_consonant()
+        consonant_guesses += 1
+    else:
+        print("That was 3, now it's time to guess a vowel!")
+        final_vowel()
+        print("Here are your revealed letters: " + str(correct_letters))
+        print("Now it's time to guess the word.")
+        puzzle()
+        if puzzle_guess == the_word:
+            print("Congratulations, you won $1,000 extra.")
+            player = player + 1000
+            print("you now have" + str(player) )
+        else:
+            ("Sorry, you lost!")
 
 #game play
 
