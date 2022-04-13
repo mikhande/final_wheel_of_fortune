@@ -139,21 +139,7 @@ def puzzle():
     else: 
         print("That's not a word... Try again.")
 
-#Round 3 definition
-def round3():
-    global player   
-    global given_letters
-    player_names = {p1_bank: "player 1", p2_bank: "player 2", p3_bank: "player 3"}
-    player = (player_names[max(player_names)])
 
-    get_word()
-    print("Welcome to round 3: " + (player))
-
-    given_letters = ['r','s','t','l','n','e']
-    for position in range(len(the_word_list)):
-        if the_word_list[position] == given_letters:
-            correct_letters[position] = given_letters
-    print("Your word is: " + (the_word))
 
 
 
@@ -402,10 +388,25 @@ def round1_2():
             else:
                 print("Please type '1': ")
 
+#Round 3 definition
+def round3():
+    global player   
+    global given_letters
+    player_names = {p1_bank: "player 1", p2_bank: "player 2", p3_bank: "player 3"}
+    player = (player_names[max(player_names)])
+
+    get_word()
+    print("Welcome to round 3: " + (player))
+
+    given_letters = ['r','s','t','l','n','e']
+    for position in range(len(the_word_list)):
+        if the_word_list[position] == given_letters:
+            correct_letters[position] = given_letters
+    print("Your word is: " + (the_word))
 
 #game play
 
-while rounds < 2 :
+while rounds <= 1 :
     round1_2()
 else:
      round3()
