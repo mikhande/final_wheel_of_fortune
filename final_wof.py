@@ -35,7 +35,7 @@ vowels = ['a','e','i','o','u']
 consonants = ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z']
 
 #This is the wheel based off photo sent in chat
-the_wheel =  [200, 400, 250, 150, 400, 600, 250, 350, 750, 800, 300, 200, 100, 500, 400, 300, 200, 700, 200, 150, 450, "BANKRUPTCY", "Lose a Turn"]
+the_wheel =  ["BANKRUPTCY", "Lose a Turn", 200, 400, 250, 150, 400, 600, 250, 350, 750, 800, 300, 200, 100, 500, 400, 300, 200, 700, 200, 150, 450]
 
 wheel_choice = random.choice(the_wheel)
 
@@ -131,7 +131,6 @@ def puzzle():
     puzzle_guess = input("Good luck! Please type in the word: ")
     if puzzle_guess.isalpha():
         if puzzle_guess == the_word:
-            add_round()
             print(rounds)
             print("Congratulations, you got it! The word was " + str(the_word.upper()))
             print("We will begin Round 2 now. Good luck!")
@@ -142,18 +141,20 @@ def puzzle():
 
 #Round 3 definition
 def round3():
+    global player   
     global given_letters
+    player_names = {p1_bank: "player 1", p2_bank: "player 2", p3_bank: "player 3"}
+    player = (player_names[max(player_names)])
+
     get_word()
-    print("Welcome to round 3!")
-    # player = max(pbanks)
+    print("Welcome to round 3: " + (player))
+
     given_letters = ['r','s','t','l','n','e']
     for position in range(len(the_word_list)):
         if the_word_list[position] == given_letters:
             correct_letters[position] = given_letters
-    while rounds == 2:
-        print("Congratulations on making it to round 3 player " + str(player) + '!')
-        print("Here is your new word:" + str(correct_letters))
-        print("")
+    print("Your word is: " + (the_word))
+
 
 
 
@@ -169,13 +170,15 @@ def round1_2():
     guess = False
 
 
+
     print(p1_bank, p2_bank, p3_bank)
 
+  
     while guess == False:
-        get_word()
+
 #Player 1's turn
         while player1_turn == True:
-     
+            get_word()
         
             print("Welcome to WHEEL OF FORTUNE! Rounds 1 & 2")
             print("Here is your word: " + str(correct_letters))
@@ -184,16 +187,12 @@ def round1_2():
             first_spin = input("Player 1, to spin the wheel, type '1': ") 
             if first_spin == "1": #Spin the wheel
                 spin_wheel()
-                if wheel_choice == "BANKRUPTCY": #If bankrupt or lose a turn, it's the next player's turn
+                if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
                     p1_bank = player_bank
                     print("player 1 bank is now: " + str(p1_bank))
                     player2_turn = True
                     player1_turn = False
                     print("Sorry player 1.. You lost your turn.")
-                elif wheel_choice == "Lose a Turn":
-                    p1_bank = player_bank
-                    player2_turn = True
-                    player1_turn = False
                 else:
                     if consonant_guess not in the_word: #if the guess is wrong, next player's turn
                         player2_turn = True
@@ -203,14 +202,13 @@ def round1_2():
                         print("player 1 bank = " + str(p1_bank))
                         if p1_bank >= 250: #Over 250 in the bank allows you to buy a vowel
                             vowel_question = input("You can now spin the wheel again, buy a vowel or guess the puzzle. A vowel costs $250. If wheel type '1', for vowel type '2,' if guess the puzzle type '3': ")
-                            if vowel_question == "2":
+                            if vowel_question == "2": #Player can guess a vowel
                                 guess_vowel()
                                 p1_bank = player_bank
                                 if vowel_guess not in the_word:
                                     player2_turn = True
-                                    player1_turn = False
-                                
-                            elif vowel_question == "3":
+                                    player1_turn = False   
+                            elif vowel_question == "3": #Player can guess the puzzle
                                 puzzle()
                                 if puzzle_guess == the_word:
                                     add_round()
@@ -220,9 +218,27 @@ def round1_2():
                                     player2_turn = True
                             elif vowel_question == "1":
                                 spin_wheel()
+                                if wheel_choice == "BANKRUPTCY": #If bankrupt or lose a turn, it's the next player's turn
+                                    p1_bank = player_bank
+                                    print("player 1 bank is now: " + str(p1_bank))
+                                    player2_turn = True
+                                    player1_turn = False
+                                    print("Sorry player 1.. You lost your turn.")
+                                elif wheel_choice == "Lose a Turn":
+                                    p1_bank = player_bank
+                                    player2_turn = True
+                                    player1_turn = False
+                                else:
+                                    if consonant_guess not in the_word: #if the guess is wrong, next player's turn
+                                        player2_turn = True
+                                        player1_turn = False
+                                    elif consonant_guess in the_word:
+                                        p1_bank = p1_bank + player_bank
+                                        print("player 1 bank = " + str(p1_bank))
                             else:
                                 print("Please type either 1, 2, or 3.")
-                        elif player_bank < 250: #less than 250 in the bank, no option to buy a vowel
+                        elif p1_bank < 250:
+                            # p1_bank < 250: #less than 250 in the bank, no option to buy a vowel
                             last_response = input("You can now spin the wheel again or guess the puzzle. Type '1' for Wheel and '2' for Puzzle: ")
                             last_response.upper()
                             if last_response == "2":
@@ -235,7 +251,19 @@ def round1_2():
                                     player2_turn = True
                             elif last_response == "1":
                                 spin_wheel()
-                            else:
+                                if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
+                                    p1_bank = player_bank
+                                    print("player 1 bank is now: " + str(p1_bank))
+                                    player2_turn = True
+                                    player1_turn = False
+                                    print("Sorry player 1.. You lost your turn.")
+                                else:
+                                    if consonant_guess not in the_word: #if the guess is wrong, next player's turn
+                                        player2_turn = True
+                                        player1_turn = False
+                                    elif consonant_guess in the_word:
+                                        p1_bank = p1_bank + player_bank
+                                        print("player 1 bank = " + str(p1_bank))
                                 print("Please type either 1 or 2.")
             else:
                 print("Please type '1: ")
@@ -246,24 +274,19 @@ def round1_2():
             first_spin = input("Player 2, to spin the wheel, type '1': ")
             if first_spin == "1":
                 spin_wheel()
-                print(f'wheel_choice ={wheel_choice}')
-                if wheel_choice == "BANKRUPTCY": #If bankrupt or lose a turn, it's the next player's turn
+                if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
                     p2_bank = player_bank
-                    print("player 2 bank is now: " + str(p2_bank))
-                    player2_turn = True
-                    player1_turn = False
-                    print("Sorry player 2.. You lost your turn.")
-                elif wheel_choice == "Lose a Turn":
-                    p2_bank = player_bank
+                    print("player 2 bank is now: " + str(p1_bank))
                     player3_turn = True
                     player2_turn = False
+                    print("Sorry player 2.. You lost your turn.")
                 else:
-                    if consonant_guess not in the_word:
+                    if consonant_guess not in the_word: #if the guess is wrong, next player's turn
                         player3_turn = True
                         player2_turn = False
                     elif consonant_guess in the_word:
                         p2_bank = p2_bank + player_bank
-                        print("player 2 bank = " + str(p2_bank))
+                        print("player 1 bank = " + str(p2_bank))
                         if p2_bank >= 250:
                             vowel_question = input("You can now buy spin the wheel again, buy a vowel or guess the puzzle. A vowel costs $250. If spin the wheel type '1', for vowel type '2', if guess the puzzle type '3': ")
                             if vowel_question == "2":
@@ -283,7 +306,7 @@ def round1_2():
                                     player3_turn = True
                             elif vowel_question == "1":
                                 spin_wheel()
-                        elif player_bank < 250: #less than 250 in the bank, no option to buy a vowel
+                        elif p2_bank < 250: #less than 250 in the bank, no option to buy a vowel
                             last_response = input("You can now spin the wheel again or guess the puzzle. Type '1' for Wheel and '2' for Puzzle: ")
                             last_response.upper()
                             if last_response == "2":
@@ -296,6 +319,19 @@ def round1_2():
                                     player3_turn = True
                             elif last_response == "1":
                                 spin_wheel()
+                                if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
+                                    p2_bank = player_bank
+                                    print("player 2 bank is now: " + str(p1_bank))
+                                    player3_turn = True
+                                    player2_turn = False
+                                    print("Sorry player 2.. You lost your turn.")
+                                else:
+                                    if consonant_guess not in the_word: #if the guess is wrong, next player's turn
+                                        player3_turn = True
+                                        player2_turn = False
+                                    elif consonant_guess in the_word:
+                                        p2_bank = p2_bank + player_bank
+                                        print("player 2 bank = " + str(p1_bank))
             else:
                 print("Please type '1': ")
 
@@ -337,7 +373,7 @@ def round1_2():
                                     player1_turn = True
                             elif vowel_question == "1":
                                 spin_wheel()
-                        elif player_bank < 250: #less than 250 in the bank, no option to buy a vowel
+                        elif p3_bank < 250: #less than 250 in the bank, no option to buy a vowel
                             last_response = input("You can now spin the wheel again or guess the puzzle. Type '1' for Wheel and '2' for Puzzle: ")
                             last_response.upper()
                             if last_response == "2":
@@ -350,13 +386,26 @@ def round1_2():
                                     player3_turn = False
                             elif last_response == "1":
                                 spin_wheel()
+                                if wheel_choice == "BANKRUPTCY" or wheel_choice == "Lose a Turn": #If bankrupt or lose a turn, it's the next player's turn
+                                    p3_bank = player_bank
+                                    print("player 3 bank is now: " + str(p3_bank))
+                                    player1_turn = True
+                                    player3_turn = False
+                                    print("Sorry player 3.. You lost your turn.")
+                                else:
+                                    if consonant_guess not in the_word: #if the guess is wrong, next player's turn
+                                        player1_turn = True
+                                        player3_turn = False
+                                    elif consonant_guess in the_word:
+                                        p3_bank = p3_bank + player_bank
+                                        print("player 3 bank = " + str(p3_bank))
             else:
                 print("Please type '1': ")
 
 
 #game play
 
-while rounds <= 2:
+while rounds < 2 :
     round1_2()
 else:
      round3()
